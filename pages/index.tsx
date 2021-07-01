@@ -6,14 +6,18 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Creative Nest</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Creative Nest site in Next.js! See <Link href="/team">Team Page</Link>
+          Creative Nest
         </h1>
+        <p className={styles.description}>Hatching Creative Talent</p>
+        <Link href="/talent">Our creative talents</Link>
+        <Link href="/gallery">Gallery</Link>
+        <Link href="/hatch-idea">Let's hatch your idea!</Link>
       </main>
     </div>
   )
