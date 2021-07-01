@@ -1,18 +1,52 @@
 name: Deploy
 on:
-  workflow_run:
-    workflows: 
-      - "Build and push docker image"
-    branches:
-      - main
-    types: 
-      - completed
+  # workflow_run:
+  #   workflows: 
+  #     - "Build and push docker image"
+  #   branches:
+  #     - main
+  #   types: 
+  #     - completed
+  # workflow_dispatch:
 
 jobs:
-  docker-back-end:
-    name: Build and push docker image
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        run: echo 'hi'
+      - name: Configure SSH
+        # Retrieve private SSH key from github secrets
+        # Create key file with owner read/write permissions
+        # Put github secrets host and user into an ssh config file
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+      - name: Pull and run docker image with SSH
+        # Run ssh with config file and script
+        # Script will install docker, login to github packages and pull new image, stop and clean up old deployment, run the new image in a new container
+        run: |
+          ssh staging "
+            apt update
+            apt install -y docker.io
+            docker login ghcr.io -u ${{ github.actor }} --password-stdin ${{ secrets.GITHUB_TOKEN }}
+            docker pull ghcr.io/creative-nest/creative-nest:latest
+            docker service rm creative-nest-instance
+            docker service create \
+              --with-registry-auth \
+              -p 443:443 \
+              -p 80:80 \
+              --name creative-nest-instance \
+              ghcr.io/creative-nest/creative-nest:latest
+            docker service scale creative-nest-instance=3
+          "
