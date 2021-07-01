@@ -7,3 +7,12 @@ on:
       - main
     types: 
       - completed
+
+jobs:
+  docker-back-end:
+    name: Build and push docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        run: echo 'hi'
