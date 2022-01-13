@@ -14,3 +14,52 @@ a {
 * {
   box-sizing: border-box;
 }
+
+section {
+  width: 100vw;
+}
+
+img {
+  width: 100px;
+  display: inline-block;
+  /* background-color: lightgrey; */
+  aspect-ratio: 1;
+}
+
+nav {
+  padding: 2em;
+  height: 3em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  /* background-color: red; */
+}
+
+nav > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+}
+
+nav > div:first-child {
+  justify-content: flex-start;
+}
+
+a {
+  padding: 0.5em 1em;
+  color: black;
+}
+
+nav > div > a {
+  color: white;
+}
+
+nav > div > a:last-child {
+  background-color: white;
+  border-radius: 1em;
+  color: black;
+}
