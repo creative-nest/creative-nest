@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </nav>
       <main className={styles.main}>
-        <div>
+        <div className={styles.mainLeft}>
           <h1 className={styles.title}>
             Creative Nest
           </h1>
@@ -32,15 +32,20 @@ export default function Home() {
           <Link href="/contact">Describe your idea</Link>
           <Link href="/contact">Contact us</Link>
         </div>
-        <div>
+        <div className={styles.mainRight}>
           <img alt="Creative Nest artwork" />
         </div>
       </main>
-      <section>
-        <h1 className={styles.title}>
-          Gallery
-        </h1>
-        <p className={styles.description}>Projects that have taken flight.</p>
+      <section className={styles.gallery}>
+        <div className={styles.galleryLeft}>
+          <h1 className={styles.title}>
+            Gallery
+          </h1>
+          <p className={styles.description}>Projects that have taken flight.</p>
+        </div>
+        <div className={styles.galleryRight}>
+          <div className={styles.carrouselItem}>Facade Design</div>
+        </div>
       </section>
       <section>
         <h1 className={styles.title}>
