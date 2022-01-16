@@ -18,11 +18,12 @@ a {
 img {
   width: 100px;
   display: inline-block;
-  background-color: lightgrey;
-  aspect-ratio: 1;
+  /* background-color: lightgrey; */
+  /* aspect-ratio: 1; */
 }
 
 nav {
+  z-index: 2;
   padding: 2em;
   height: 3em;
   width: 100%;

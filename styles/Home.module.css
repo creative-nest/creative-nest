@@ -14,9 +14,9 @@
 .main {
   flex: 1;
   display: grid;
-  grid-template-columns: auto minmax(5fr, 500px) minmax(4fr, 400px) auto;
+  grid-template-columns: auto minmax(500px, 5fr) 300px 300px minmax(100px, 1fr) auto;
   grid-template-rows: 1fr;
-  grid-template-areas: "gutterLeft contentLeft contentRight gutterRight";
+  grid-template-areas: "gutterLeft contentLeft artLeft artRight contentRight gutterRight";
   text-align: left;
   min-height: 100vh;
   width: 100%;
@@ -30,9 +30,16 @@
   align-items: flex-start;
 }
 
-.mainRight {
-  /* grid-area: contentRight; */
-  grid-area: 1 / contentRight / 1 / gutterRight;
+.mainArtContainer {
+  grid-area: 1 / artLeft / 1 / artRight;
+  display: grid;
+  place-content: center;
+}
+
+.mainArt {}
+
+.gradient {
+  grid-area: 1 / artRight / 1 / gutterRight;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,6 +49,16 @@
 
 .main img {
   /* width: 100%; */
+}
+
+.customerLogoContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10em;
+}
+
+.customerLogo {
+  opacity: 50%;
 }
 
 .footer {
@@ -153,7 +170,23 @@
   background-color: lightgrey;
   height: 90%;
   width: 90%;
+}
+
+.carrouselItem p {
   font-weight: 900;
   font-size: 50pt;
-
 }
+
+/* The team */
+
+.peopleContainer img {
+  border-radius: 0.5em;
+}
+
+.peopleContainer {
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2em;
+}
+
